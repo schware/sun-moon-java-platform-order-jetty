@@ -27,12 +27,15 @@ for a WAR/classpath bug hit and fixed along the way):
 - **API docs**: OpenAPI 3 / Swagger UI via springdoc — see
   [`docs/swagger.md`](docs/swagger.md) for how to annotate new endpoints
 - **Batch**: a single startup pass (`OrderSummaryStartupRunner`) that sums
-  seeded in-memory orders and logs the report
+  the orders in the database and logs the report
+- **Persistence**: real — `JdbcOrderRepository` stores orders in Postgres
+  as JSONB (originally planned as MongoDB; switched because MongoDB 5.0+
+  needs AVX, which this homelab CPU doesn't have — see `docs/adr` in the
+  parent `sun-moon-java-platform` repo)
 
-**No real infrastructure adapters yet** — persistence, cache, and messaging
-are all in-memory fakes (`InMemoryOrderRepository`,
-`InMemoryEventPublisher`). Wiring real Oracle/MyBatis, Redis, and Kafka
-adapters behind Spring profiles is follow-up work, not done here.
+**Messaging is still an in-memory fake** (`InMemoryEventPublisher`).
+Wiring a real Kafka/Redis Streams adapter is follow-up work per
+`docs/adr/0006`.
 
 **Dropped from the Netty version:** the raw Socket transport (port 9090).
 There's no Servlet-API equivalent — see the ADR.
@@ -57,8 +60,11 @@ re-litigated later.
 
 ## Build & run
 
-Requires JDK 21+. The Gradle wrapper is committed, so no local Gradle
-install is needed.
+Requires JDK 21+, and PostgreSQL reachable at `localhost:5432` with an
+`order_service` database and `sunmoon` role (see
+`src/main/resources/application.yml`). `schema.sql` runs automatically on
+startup (`spring.sql.init.mode: always`). The Gradle wrapper is committed,
+so no local Gradle install is needed.
 
 ```
 ./gradlew test
@@ -101,7 +107,7 @@ src/main/java/com/sunmoon/platform/
   transport/http/               REST controllers
   transport/ws/                 WebSocket handler + config
   batch/                        Startup order-summary pass
-  infrastructure/persistence/   In-memory OrderRepository (fake; real adapter TBD)
+  infrastructure/persistence/   JdbcOrderRepository (Postgres + JSONB, real)
   infrastructure/messaging/     In-memory EventPublisher (fake; real adapter TBD)
   config/                       OpenAPI/Swagger setup, Actuator path-redaction
 ```

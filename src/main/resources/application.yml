@@ -1,6 +1,13 @@
 spring:
   application:
     name: sun-moon-java-platform
+  datasource:
+    url: jdbc:postgresql://localhost:5432/order_service
+    username: sunmoon
+    password: sunmoon_dev_pw
+  sql:
+    init:
+      mode: always
 
 management:
   endpoints:

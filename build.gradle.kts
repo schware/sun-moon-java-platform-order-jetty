@@ -28,6 +28,13 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
 
+    // Postgres + JSONB — originally planned as MongoDB, switched because
+    // MongoDB 5.0+ requires AVX and this homelab CPU (Core i5 M 480, 2010)
+    // doesn't have it. See sun-moon-java-platform-delivery's build.gradle.kts
+    // for the full story (same pivot, same reason).
+    implementation("org.springframework.boot:spring-boot-starter-jdbc")
+    runtimeOnly("org.postgresql:postgresql")
+
     implementation("io.micrometer:micrometer-registry-prometheus")
     implementation("io.github.resilience4j:resilience4j-spring-boot3:2.2.0")
 
