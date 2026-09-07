@@ -1,13 +1,20 @@
-# sun-moon-java-platform
+# sun-moon-java-platform-order
 
-A Java, DDD-based **Enterprise Runtime Platform**, rebuilt on **Spring Boot**,
-deployed as a **WAR** to a standalone **Jetty** servlet container.
+The **Order** service — one of three (alongside
+[KDS](https://github.com/schware/sun-moon-java-platform-kds) and
+[Delivery](https://github.com/schware/sun-moon-java-platform-delivery))
+tied together by the
+[`sun-moon-java-platform`](https://github.com/schware/sun-moon-java-platform)
+umbrella repo via git submodules. A Java, DDD-based service on **Spring
+Boot**, deployed as a **WAR** to a standalone **Jetty** servlet container.
 
-This replaces the earlier hand-rolled-Netty version of this project, now
+This was originally *the* `sun-moon-java-platform` (a single deployable)
+before the MSA split — see the umbrella repo's `docs/adr/0002` for why and
+how. It in turn replaced an earlier hand-rolled-Netty version, now
 archived at
 [`sun-moon-java-platform-netty`](https://github.com/schware/sun-moon-java-platform-netty).
 See [`docs/adr/0004`](docs/adr/0004-spring-was-jetty-replaces-netty.md) for
-why.
+that decision.
 
 This is the Java counterpart to `sun-moon-python-platform` and
 `sun-moon-c-server` — same `sun-moon-*` family.

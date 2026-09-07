@@ -2,6 +2,17 @@
 
 ## Status
 
+**Superseded — implemented sooner than planned, on the same hardware
+this ADR expected to wait for.** This repo (`sun-moon-java-platform`) is
+now the Order service specifically; the split is tracked going forward in
+the [`sun-moon-java-platform` umbrella repo](https://github.com/schware/sun-moon-java-platform)'s
+`docs/adr/0001` (per-service database — including a hardware surprise:
+MongoDB doesn't run on this CPU) and `docs/adr/0002` (the split itself).
+Kept here for history — the reasoning below is what the decision looked
+like before it was acted on.
+
+---
+
 Accepted as future direction. **Not implemented yet** — deferred until
 better hardware is available (current homelab box: 4 cores / 5.6GB RAM,
 shared with everything else described in `Debian-Setting`).
