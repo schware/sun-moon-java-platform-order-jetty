@@ -24,6 +24,13 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web") {
         exclude(group = "org.springframework.boot", module = "spring-boot-starter-tomcat")
     }
+    // NOTE: this transitively pulls in jakarta.servlet-api as a normal
+    // compile dependency, which is the only reason SunMoonApplication
+    // extending SpringBootServletInitializer compiles without an explicit
+    // providedCompile("jakarta.servlet:jakarta.servlet-api") — see
+    // sun-moon-java-platform-kds/-delivery's build.gradle.kts, which lack
+    // websocket and had to add that explicitly. Don't remove this starter
+    // without adding that.
     implementation("org.springframework.boot:spring-boot-starter-websocket")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
